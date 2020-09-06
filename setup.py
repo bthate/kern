@@ -6,11 +6,11 @@ def readme():
 
 setup(
     name='kern',
-    version='20',
+    version='21',
     url='https://bitbucket.org/bthate/kern',
     author='Bart Thate',
     author_email='bthate@dds.nl',
-    description="kern provides a object as json files backend, event handler and console code.",
+    description="objects, events and console code.",
     long_description=readme(),
     license='Public Domain',
     packages=["kern"],

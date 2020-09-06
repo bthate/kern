@@ -3,7 +3,7 @@ KERN
 
 | Welcome to KERN ! see https://pypi.org/project/kern/ 
 
-KERN provides a object as json files backend, event handler and console code.
+KERN provides objects, events and console code.
 KERN has no COPYRIGHT or LICENSE and is placed in the public domain.
 
 INSTALL

@@ -1,6 +1,4 @@
-# ENGINE - write your own commands.
-#
-# internet relay chat (irc)
+"internet relay chat."
 
 __version__ = 5
 
@@ -355,7 +353,7 @@ class IRC(Handler):
 
     def NOTICE(self, event):
         if event.txt.startswith("VERSION"):
-            txt = "\001VERSION %s %s - %s\001" % ("ENGINE", __version__, "write your own commands.")
+            txt = "\001VERSION %s %s - %s\001" % ("KERN", __version__, "write your own commands.")
             self.command("NOTICE", event.channel, txt)
 
     def PRIVMSG(self, event):
@@ -411,7 +409,7 @@ class DCC(Handler):
             s.connect((addr, port))
         except ConnectionError:
             return
-        s.send(bytes('Welcome to ENGINE %s !!\n' % event.nick, "utf-8"))
+        s.send(bytes('Welcome to KERN %s !!\n' % event.nick, "utf-8"))
         s.setblocking(1)
         os.set_inheritable(s.fileno(), os.O_RDWR)
         self._sock = s

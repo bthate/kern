@@ -1,6 +1,6 @@
 "event handler."
 
-import importlib, importlib.util, inspect, os, queue, sys, time, threading, traceback, zipfile, _thread
+import importlib, importlib.util, inspect, os, pkgutil, queue, sys, time, threading, traceback, zipfile, _thread
 import kern.obj
 
 from kern.obj import Cfg, Default, Object, Ol, cdir, get, get_name, last, locked, save, update
@@ -96,6 +96,7 @@ class Handler(Object):
     def __init__(self):
         super().__init__()
         self.cmds = Object()
+        self.packages = []
         self.queue = queue.Queue()
         self.stopped = False
 
@@ -149,13 +150,9 @@ class Handler(Object):
         self.stopped = True
         self.queue.put(None)
 
-    def walk(self, names, skip=None):
+    def walk(self, names):
         "walk a packages modules."
         modules = []
-        if not skip:
-            skipped = []
-        else:
-            skipped = skip.split(",")
         for name in names.split(","):
             spec = importlib.util.find_spec(name)
             if not spec:
@@ -164,20 +161,11 @@ class Handler(Object):
             pn = getattr(pkg, "__path__", None)
             if not pn:
                 continue
-            pn = pn[0]
-            if os.path.exists(pn):
-                fls = os.listdir(pn)
-            else:
-                fls = zipfile.namelist(pn)
-            for fn in fls:
-                if fn.startswith("_") or not fn.endswith(".py"):
-                    continue
-                fn = fn[:-3]
-                if fn in skipped:
-                    continue
-                mn = "%s.%s" % (name, fn)
+            for mi in pkgutil.iter_modules(pn):
+                mn = "%s.%s" % (name, mi.name)
                 module = self.load_mod(mn)
                 modules.append(module)
+            self.packages.append(name)
         return modules
 
 class Kernel(Handler):
@@ -199,7 +187,13 @@ class Kernel(Handler):
         mods = []
         thrs = []
         for mn in spl(mns):
-            ms = "mods.%s" % mn
+            ms = ""
+            for pn in self.packages:
+                n = "%s.%s" % (pn, mn)
+                spec = importlib.util.find_spec(n)
+                if spec:
+                    ms = n
+                    break
             try:
                 mod = self.load_mod(ms)
             except ModuleNotFoundError:
