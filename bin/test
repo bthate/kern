@@ -7,9 +7,9 @@ import os, sys, time, unittest
 
 sys.path.insert(0, os.getcwd())
 
-from csl import boot, execute, elapsed, parse, starttime
-from hdl import Kernel
-from obj import Object, cdir
+from kern.csl import boot, execute, elapsed, parse, starttime
+from kern.hdl import Kernel
+from kern.obj import Object, cdir
 
 import mods.rss
 
@@ -17,9 +17,10 @@ def main():
     mods.rss.debug = True
     for line in os.popen("rm -fR ~/.test").readlines():
         print(line)
-    k = boot("engine")
+    k = boot("kern", os.path.expanduser("~/.test"))
     k.walk("mods")
     k.start()
+    print(repr(k))
     test_path = os.getcwd() + os.sep + "tests"
     if k.cfg.txt:
         pat = "test_%s*" % k.cfg.txt

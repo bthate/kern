@@ -199,9 +199,9 @@ def get_completer():
     "return completer."
     return readline.get_completer()
 
-def boot(name="engine"):
+def boot(name="kern", wd=""):
     "set working directory."
-    k = Kernel()
+    k = get_kernel()
     parsed = Default()
     parse(k.cfg, " ".join(sys.argv[1:]))
     if root():
@@ -212,7 +212,7 @@ def boot(name="engine"):
         k.cfg.md = md
         k.scandir(md)
     else:
-        k.cfg.wd = os.path.expanduser("~/.%s" % name)
+        k.cfg.wd = wd or os.path.expanduser("~/.%s" % name)
     kern.obj.workdir = k.cfg.wd
     sys.path.insert(0, kern.obj.workdir)
     return k

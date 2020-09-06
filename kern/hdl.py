@@ -400,12 +400,11 @@ def get_exception(txt="", sep=" "):
 
 def get_kernel():
     "return first registered kernel."
-    try:
+    if kernels:
         return kernels[0]
-    except IndexError:
-       k = Kernel()
-       kernels.append(k)
-       return k
+    k = Kernel()
+    kernels.append(k)
+    return k
        
 def launch(func, *args, **kwargs):
     "launch a task to run function in."

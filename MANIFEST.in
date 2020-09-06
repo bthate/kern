@@ -1,2 +1,2 @@
-include bin/engine
+include bin/kern
 recursive-include mods *.py

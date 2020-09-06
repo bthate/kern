@@ -4,8 +4,8 @@
 
 import os, random, sys, time, unittest
 
-from obj import Object, get
-from hdl import Event, get_kernel, launch
+from kern.obj import Object, get
+from kern.hdl import Event, get_kernel, launch
 
 param = Object()
 param.add = ["test@shell", "bart"]
@@ -24,6 +24,7 @@ ignore = ["ps", "rm"]
 nrtimes = 1
 
 k = get_kernel()
+print(repr(k))
 
 class Event(Event):
 
@@ -60,6 +61,7 @@ def consume(elems):
     
 def tests(b):
     keys = list(k.cmds)
+    print(keys)
     random.shuffle(keys)
     for cmd in keys:
         if cmd in ignore:

@@ -24,8 +24,7 @@ def dne(event):
     if not event.args:
         return
     selector = {"txt": event.args[0]}
-    db = Db()
-    for o in db.find("mods.ent.Todo", selector):
+    for o in find("mods.ent.Todo", selector):
         o._deleted = True
         save(o)
         event.reply("ok")

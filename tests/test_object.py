@@ -4,7 +4,7 @@
 
 import types, unittest
 
-from obj import Object, last, load, save
+from kern.obj import Object, last, load, save
 
 class Test_Object(unittest.TestCase):
 

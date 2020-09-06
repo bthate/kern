@@ -43,12 +43,12 @@ class Cfg(Cfg):
 
     def __init__(self):
         super().__init__()
-        self.channel = "#engine"
-        self.nick = "engine"
+        self.channel = "#kern"
+        self.nick = "kern"
         self.port = 6667
-        self.realname = "engine"
+        self.realname = "kern"
         self.server = "localhost"
-        self.username = "engine"
+        self.username = "kern"
 
 class Event(Event):
 
