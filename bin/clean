@@ -1,0 +1,1 @@
+rm -fR dist *~ __pycache__ kern/*~ kern/__pycache__ tests/*~ tests/__pycache__ mods/*~ mods/__pycache__ bin/*~ bin/__pycache__ kern.egg-info

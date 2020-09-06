@@ -1,0 +1,16 @@
+# cfg.txt
+
+"""
+    >>> from hdl import Cfg 
+    >>> cfg = Cfg()
+    >>> cfg.server = "localhost"
+    >>> cfg.channel = "#okbot"
+    >>> cfg.nick = "okbot"
+    >>> print(cfg)
+    {
+        "channel": "#botlib",
+        "nick": "botlib",
+        "server": "localhost"
+    }
+
+"""

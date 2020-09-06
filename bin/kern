@@ -1,0 +1,24 @@
+#!/usr/bin/python3 -u
+# KERN - objects, event handler and console.
+#
+# kern cmd, kern <cmd>
+
+import os, sys ; sys.path.insert(0, os.getcwd())
+
+from kern.csl import Console, boot, execute
+from kern.hdl import Kernel
+
+def main():
+    k = boot("kern")
+    k.walk("mods")
+    if k.cfg.txt:
+        return k.cmd(k.cfg.origtxt)
+    k.start()
+    if "s" in k.cfg.opts:
+        c = Console()
+        c.start()
+        k.cfg.opts["w"]= True
+    if "w" in k.cfg.opts:
+        k.wait()
+
+execute(main)

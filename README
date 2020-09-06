@@ -1,0 +1,46 @@
+KERN
+####
+
+| Welcome to KERN ! see https://pypi.org/project/kern/ 
+
+KERN provides a object as json files backend, event handler and console code.
+KERN has no COPYRIGHT or LICENSE and is placed in the public domain.
+
+INSTALL
+=======
+
+you can download with pip3:
+
+::
+
+ $ sudo pip3 install kern
+
+KERN itself does not install a binary as it is a library. The tarball
+however includes a kern program that can run as a test program for KERN.
+
+You can download the tarball from https://pypi.org/project/kern/#files
+
+if you want to develop on engine, clone the source at github:
+
+::
+
+ $ git clone https://github.com/bthate/kern
+
+MODULES
+=======
+
+KERN has the following modules:
+
+::
+
+    obj			- objects
+    hdl			- handler
+    csl			- console
+
+CONTACT
+=======
+
+contact me on IRC/freenode/#dunkbots or email me at bthate@dds.nl
+
+| Bart Thate (bthate@dds.nl, thatebart@gmail.com)
+| botfather on #dunkbots irc.freenode.net

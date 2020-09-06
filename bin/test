@@ -1,0 +1,35 @@
+#!/usr/bin/python3
+# BOTLIB - the bot library
+#
+#
+
+import os, sys, time, unittest
+
+sys.path.insert(0, os.getcwd())
+
+from csl import boot, execute, elapsed, parse, starttime
+from hdl import Kernel
+from obj import Object, cdir
+
+import mods.rss
+
+def main():
+    mods.rss.debug = True
+    for line in os.popen("rm -fR ~/.test").readlines():
+        print(line)
+    k = boot("engine")
+    k.walk("mods")
+    k.start()
+    test_path = os.getcwd() + os.sep + "tests"
+    if k.cfg.txt:
+        pat = "test_%s*" % k.cfg.txt
+    else:
+        pat = "test*"
+    suite = unittest.loader.TestLoader().discover(test_path, pattern=pat)
+    unittest.TextTestRunner(verbosity=3).run(suite)
+    #k.wait()
+   
+execute(main)
+
+print(elapsed(time.time() - starttime))
+os._exit(0)
