@@ -1,6 +1,6 @@
 "console related functions."
 
-__version__ = 11
+__version__ = 8
 
 import atexit, datetime, os, readline, sys, termios, time, threading
 import kern.obj
@@ -206,6 +206,7 @@ def boot(name="kern", wd=""):
     parse(k.cfg, " ".join(sys.argv[1:]))
     if root():
         k.cfg.wd = "/var/lib/%s/" % name
+        kern.obj.workdir = k.cfg.wd
         cdir(kern.obj.workdir)
         md = os.path.join(kern.obj.workdir, "mods", "")
         cdir(md)

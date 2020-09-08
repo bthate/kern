@@ -194,6 +194,8 @@ class Kernel(Handler):
                 if spec:
                     ms = n
                     break
+            if not ms:
+                continue
             try:
                 mod = self.load_mod(ms)
             except ModuleNotFoundError:
