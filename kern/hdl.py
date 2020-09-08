@@ -198,10 +198,10 @@ class Kernel(Handler):
                 continue
             try:
                 mod = self.load_mod(ms)
-            except ModuleNotFoundError:
+            except (ModuleNotFoundError, ValueError):
                 try:
                     mod = self.load_mod(mn)
-                except ModuleNotFoundError as ex:
+                except (ModuleNotFoundError, ValueError) as ex:
                     if mn in str(ex):
                         continue
                     print(get_exception())
