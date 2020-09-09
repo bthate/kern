@@ -220,7 +220,7 @@ class Kernel(Handler):
         for fn in os.listdir(name):
             if fn.startswith("_") or not fn.endswith(".py"):
                 continue
-            mn = "%s.%s" % (name, fn[:-3])
+            mn = "mods.%s" % fn[:-3]
             module = self.load_mod(mn)
             mods.append(module)
         return mods
@@ -398,9 +398,7 @@ def get_kernel():
     "return first registered kernel."
     if kernels:
         return kernels[0]
-    k = Kernel()
-    kernels.append(k)
-    return k
+    return Kernel()
        
 def launch(func, *args, **kwargs):
     "launch a task to run function in."

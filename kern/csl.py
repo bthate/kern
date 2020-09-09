@@ -2,7 +2,7 @@
 
 __version__ = 8
 
-import atexit, datetime, os, readline, sys, termios, time, threading
+import atexit, datetime, os, pwd, readline, sys, termios, time, threading
 import kern.obj
 
 from .obj import Default, Object, cdir, fntime, last, save, update
@@ -204,18 +204,18 @@ def boot(name="kern", wd=""):
     k = get_kernel()
     parsed = Default()
     parse(k.cfg, " ".join(sys.argv[1:]))
-    if root():
-        k.cfg.wd = "/var/lib/%s/" % name
-        kern.obj.workdir = k.cfg.wd
-        cdir(kern.obj.workdir)
-        md = os.path.join(kern.obj.workdir, "mods", "")
+    if "z" in k.cfg.opts:
+        wd = "/var/lib/%s/" % name
+        md = os.path.join(wd, "mods", "")
         cdir(md)
         k.cfg.md = md
-        k.scandir(md)
     else:
-        k.cfg.wd = wd or os.path.expanduser("~/.%s" % name)
-    kern.obj.workdir = k.cfg.wd
-    sys.path.insert(0, kern.obj.workdir)
+        wd = os.path.expanduser("~/.%s" % name)
+    print(wd)
+    kern.obj.workdir = k.cfg.wd = wd
+    cdir(wd)
+    sys.path.insert(0, wd)
+    #privileges()
     return k
 
 def root():
@@ -223,6 +223,16 @@ def root():
     if os.geteuid() != 0:
         return False
     return True
+
+def privileges():
+    if os.getuid() != 0:
+        return
+    user_name = os.getenv("SUDO_USER")
+    pwnam = pwd.getpwnam(user_name)
+    os.setgroups([])
+    os.setgid(pwnam.pw_gid)
+    os.setuid(pwnam.pw_uid)
+    old_umask = os.umask(0o22)
 
 def setcompleter(commands):
     "init completer with commands list."
