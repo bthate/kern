@@ -8,8 +8,8 @@ import datetime, importlib, inspect, json, os, random, sys, time, types, uuid, _
 
 def __dir__():
     return ("ENOCLASS", "ENOFILENAME", "Object", "Ol", "Cfg", "Db", "Default", "edit",
-            "all", "deleted", "find", "lasttype", "lastfn", "format", "get_type", "get",
-            "items", "keys", "last", "load", "register", "save", "search", "values", "update")
+            "all", "deleted", "find", "lasttype", "lastfn", "os", "format", "get_type", "get",
+            "items", "keys", "last", "load", "register", "save", "search", "sys", "values", "update")
 
 savelock = _thread.allocate_lock()
 workdir = ""

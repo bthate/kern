@@ -228,7 +228,11 @@ class Kernel(Handler):
                 continue
             mn = "mods.%s" % fn[:-3]
             print("scan %s" % mn)
-            module = self.load_mod(mn)
+            try:
+                module = self.load_mod(mn)
+            except Exception as ex:
+                print(get_exception())
+                continue
             mods.append(module)
         return mods
 
