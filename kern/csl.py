@@ -201,11 +201,12 @@ def get_completer():
 
 def boot(name="kern", wd=""):
     "set working directory."
+    privileges(name)
     k = get_kernel()
     parsed = Default()
     parse(k.cfg, " ".join(sys.argv[1:]))
     if "r" in k.cfg.opts:
-        wd = "/home/%s/" % name
+        wd = "/home/%s/.%s" % (name,name)
         md = os.path.join(wd, "mods", "")
         cdir(md)
         k.cfg.md = md
@@ -215,7 +216,6 @@ def boot(name="kern", wd=""):
     kern.obj.workdir = k.cfg.wd = wd
     cdir(wd)
     sys.path.insert(0, wd)
-    privileges(name)
     return k
 
 def root():
