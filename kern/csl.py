@@ -204,8 +204,8 @@ def boot(name="kern", wd=""):
     k = get_kernel()
     parsed = Default()
     parse(k.cfg, " ".join(sys.argv[1:]))
-    if "z" in k.cfg.opts:
-        wd = "/var/lib/%s/" % name
+    if "r" in k.cfg.opts:
+        wd = "/home/%s/" % name
         md = os.path.join(wd, "mods", "")
         cdir(md)
         k.cfg.md = md
@@ -215,7 +215,7 @@ def boot(name="kern", wd=""):
     kern.obj.workdir = k.cfg.wd = wd
     cdir(wd)
     sys.path.insert(0, wd)
-    #privileges()
+    privileges(name)
     return k
 
 def root():
@@ -224,11 +224,10 @@ def root():
         return False
     return True
 
-def privileges():
+def privileges(name="kern"):
     if os.getuid() != 0:
         return
-    user_name = os.getenv("SUDO_USER")
-    pwnam = pwd.getpwnam(user_name)
+    pwnam = pwd.getpwnam(name)
     os.setgroups([])
     os.setgid(pwnam.pw_gid)
     os.setuid(pwnam.pw_uid)
