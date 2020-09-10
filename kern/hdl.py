@@ -79,7 +79,10 @@ class Event(Default):
     def show(self):
         "show result."
         for txt in self.result:
-            print(txt)
+            try:
+                print(txt)
+            except:
+               pass
 
     def wait(self):
         "wait for event to finish."
@@ -154,6 +157,7 @@ class Handler(Object):
         "walk a packages modules."
         modules = []
         for name in names.split(","):
+            print("walk %s" % name)
             spec = importlib.util.find_spec(name)
             if not spec:
                 continue
@@ -196,6 +200,7 @@ class Kernel(Handler):
                     break
             if not ms:
                 continue
+            print("init %s" % ms)
             try:
                 mod = self.load_mod(ms)
             except (ModuleNotFoundError, ValueError):
@@ -214,13 +219,15 @@ class Kernel(Handler):
             thr.join()
         return mods
 
-    def scandir(self, name):
+    def scandir(self, path):
         "scan a directory."
         mods = []
-        for fn in os.listdir(name):
+        cdir(path + os.sep + "")
+        for fn in os.listdir(path):
             if fn.startswith("_") or not fn.endswith(".py"):
                 continue
             mn = "mods.%s" % fn[:-3]
+            print("scan %s" % mn)
             module = self.load_mod(mn)
             mods.append(module)
         return mods
