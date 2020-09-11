@@ -221,8 +221,7 @@ def format(o, keylist=None, pure=False, skip=None):
         if not val:
             continue
         val = str(val).strip()
-        if key == "text":
-            val = val.replace("\\n", "\n")
+        val = val.replace("\n", "")
         res.append((key, val))
     for k, v in res:
         if pure:

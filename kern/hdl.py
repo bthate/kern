@@ -157,7 +157,6 @@ class Handler(Object):
         "walk a packages modules."
         modules = []
         for name in names.split(","):
-            print("walk %s" % name)
             spec = importlib.util.find_spec(name)
             if not spec:
                 continue
@@ -200,7 +199,6 @@ class Kernel(Handler):
                     break
             if not ms:
                 continue
-            print("init %s" % ms)
             try:
                 mod = self.load_mod(ms)
             except (ModuleNotFoundError, ValueError):
@@ -227,7 +225,6 @@ class Kernel(Handler):
             if fn.startswith("_") or not fn.endswith(".py"):
                 continue
             mn = "mods.%s" % fn[:-3]
-            print("scan %s" % mn)
             try:
                 module = self.load_mod(mn)
             except Exception as ex:

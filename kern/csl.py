@@ -199,11 +199,12 @@ def get_completer():
     "return completer."
     return readline.get_completer()
 
-def boot(name="kern", wd=""):
+def boot(name, wd=""):
     "set working directory."
     k = get_kernel()
     parsed = Default()
     parse(k.cfg, " ".join(sys.argv[1:]))
+    kern.obj.workdir = wd or os.path.expanduser("~/%s" % name)
     return k
 
 def root():
@@ -212,7 +213,7 @@ def root():
         return False
     return True
 
-def privileges(name="kern"):
+def privileges(name):
     if os.getuid() != 0:
         return
     pwnam = pwd.getpwnam(name)
