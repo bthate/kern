@@ -1,6 +1,6 @@
 "console related functions."
 
-__version__ = 8
+__version__ = 22
 
 import atexit, datetime, os, pwd, readline, sys, termios, time, threading
 import kern.obj

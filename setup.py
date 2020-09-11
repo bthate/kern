@@ -6,7 +6,7 @@ def readme():
 
 setup(
     name='kern',
-    version='21',
+    version='22',
     url='https://bitbucket.org/bthate/kern',
     author='Bart Thate',
     author_email='bthate@dds.nl',
